@@ -1,0 +1,19 @@
+metadata:
+  name: notification-bar
+  format: "Lava-Test Test Definition 1.0"
+  description: "Abre e fecha a barra de notificação do dispositivo via ADB."
+  maintainer: "joaoborgesdbv@gmail.com"
+  os:
+    - android
+  devices:
+    - gpos
+  scope:
+    - functional
+
+run:
+  steps:
+    # Confirma que o dispositivo está visível para o adb.
+    - lava-test-case adb-devices --shell adb devices
+    # Executa o teste. O exit code do script vira o resultado do caso "notification-bar";
+    # o próprio script ainda emite casos por ciclo (notification-bar-cycle-N).
+    - lava-test-case notification-bar --shell python3 notification_bar_test.py --repeat 2 --hold 1.5
